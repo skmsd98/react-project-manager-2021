@@ -12,7 +12,10 @@ const Modal = (props) => (
             position: 'absolute',
             top: "8%",
             left: '27%',
-            borderRadius: '5px'
+            borderRadius: '5px',
+            overflow: 'scroll',
+            textAlign: 'left',
+            padding: '0 30px'
         }}>
             {props.children}
         </div>
