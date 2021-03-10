@@ -28,6 +28,18 @@ const Ticket = (props) => {
         ))
     }
 
+    // () => props.deleteTicket(props.ticketId, props.boardId)
+
+    function edit() {
+        const { ticketId, boardId, title, description } = props;
+        const newObj = { id: ticketId, title, description, title: 'tootle', description: 'descropidpfsi' }
+        props.updateTicket(ticketId, boardId, newObj)
+    }
+
+    function add() {
+        const newObj = { title: 'tootle', description: 'descropidpfsi' }
+        props.addTicket(props.boardId, newObj)
+    }
     return (
         <>
             <div onClick={handleModalToggle} style={ticketStyles}>

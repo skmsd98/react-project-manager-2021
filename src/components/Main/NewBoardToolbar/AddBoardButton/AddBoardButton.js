@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
+import Modal from './../../../../Utilities/Modal/Modal';
 
 const AddBoardButton = () => {
-    // const [isModalOpen, toggleModal] = useState(false);
+    const [isModalOpen, toggleModal] = useState(false);
 
-    // function handleModalToggle() {
-    //     toggleModal(!isModalOpen);
-    // }
+    function handleModalToggle() {
+        toggleModal(!isModalOpen);
+    }
 
     return (
         <>
-            <button style={buttonStyles}>+ New Board</button>
-            {/* {
+            <button onClick={handleModalToggle} style={buttonStyles}>+ New Board</button>
+            {
                 isModalOpen &&
-                <Modal closed={handleModalToggle} height="500px" width="600px">
-                    <div>Hello Hello Hello</div>
-                    <div>Hello Hello Hello</div>
-                    <div>Hello Hello Hello</div>
-                    <div>Hello Hello Hello</div>
+                <Modal closed={handleModalToggle} height="400px" width="500px">
+                    <h1>Ticket Details</h1>
+                    <h4>Title</h4>
+                    <input type="text" />
+                    <h4>Description</h4>
+                    <input type="text" />
                 </Modal>
-            } */}
+            }
         </>
     )
 };
