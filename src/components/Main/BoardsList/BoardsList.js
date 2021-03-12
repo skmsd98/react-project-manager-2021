@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Board from './Board/Board'
 import { v4 as uuidv4 } from 'uuid';
-import TextInput from '../../shared/TextInput/TextInput';
+// import TextInput from '../../shared/TextInput/TextInput';
 import NewBoard from './NewBoard/NewBoard';
 
 class BoardsList extends Component {
@@ -34,18 +34,22 @@ class BoardsList extends Component {
         }]
     }
 
+    handleAddBoard = title => {
+        const currentState = Object.assign({}, this.state);
+        const data = { id: uuidv4(), title, tickets: [] };
+        currentState.boardsList.push(data);
+
+        console.log(currentState)
+        this.updateState(currentState);
+    }
+
     handleUpdateTicket = (ticketId, boardId, data) => {
         const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
         const ticketIndex = this.state.boardsList[boardIndex].tickets.findIndex(ticket => ticket.id == ticketId);
         const currentState = Object.assign({}, this.state);
         currentState.boardsList[boardIndex].tickets[ticketIndex] = data;
 
-        this.setState(prevState => (
-            {
-                ...prevState,
-                currentState
-            }
-        ))
+        this.updateState(currentState);
     }
 
     handleDeleteTicket = (ticketId, boardId) => {
@@ -54,24 +58,23 @@ class BoardsList extends Component {
         const currentState = Object.assign({}, this.state);
         currentState.boardsList[boardIndex].tickets.splice(ticketIndex, 1);
 
-        this.setState(prevState => (
-            {
-                ...prevState,
-                currentState
-            }
-        ))
+        this.updateState(currentState);
     }
 
     handleAddTicket = (boardId, data) => {
         const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
         const currentState = Object.assign({}, this.state);
-        currentState.id = uuidv4();
+        data.id = uuidv4();
         currentState.boardsList[boardIndex].tickets.push(data);
-        
+
+        this.updateState(currentState);
+    }
+
+    updateState = newState => {
         this.setState(prevState => (
             {
                 ...prevState,
-                currentState
+                ...newState
             }
         ))
     }
@@ -92,8 +95,7 @@ class BoardsList extends Component {
                         />
                     )
                 }
-                <NewBoard />
-                {/* <TextInput /> */}
+                <NewBoard addBoard={this.handleAddBoard} />
             </div>
         )
     }
