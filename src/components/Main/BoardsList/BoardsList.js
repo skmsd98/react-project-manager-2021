@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Board from './Board/Board'
 import { v4 as uuidv4 } from 'uuid';
+import TextInput from '../../shared/TextInput/TextInput';
+import NewBoard from './NewBoard/NewBoard';
 
 class BoardsList extends Component {
     state = {
@@ -65,7 +67,7 @@ class BoardsList extends Component {
         const currentState = Object.assign({}, this.state);
         currentState.id = uuidv4();
         currentState.boardsList[boardIndex].tickets.push(data);
-
+        
         this.setState(prevState => (
             {
                 ...prevState,
@@ -90,6 +92,8 @@ class BoardsList extends Component {
                         />
                     )
                 }
+                <NewBoard />
+                {/* <TextInput /> */}
             </div>
         )
     }
@@ -99,7 +103,7 @@ const boardsListStyles = {
     display: 'flex',
     overflowX: 'scroll',
     overflowY: 'hidden',
-    height: '500px',
+    height: 'calc(100vh - 50px)',
     alignItems: 'flex-start'
 }
 

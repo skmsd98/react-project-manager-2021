@@ -1,0 +1,29 @@
+.InputStyles {
+    text-align: left;
+}
+
+.InputStyles input {
+    display: block;
+}
+
+.InputStyles input {
+    height: 46px;
+    width: 250px;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+.AddButton {
+    padding: 10px 15px;
+    background: #53c353;
+    color: white;
+}
+
+.CancelButton {
+    padding: 10px 15px;
+    margin-left: 5px;
+    background-color: #e49f1f;
+}
