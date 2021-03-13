@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Ticket from './Ticket/Ticket';
 import TextInput from './../../../shared/TextInput/TextInput';
+import { FaEdit } from 'react-icons/fa'
 
 const Board = (props) => {
-    const [isInputVisible, toggleInputVisibility] = useState(false);
+    const [isAddTicketInputVisible, toggleAddTicketInputVisibility] = useState(false);
+    const [isEditBoardInputVisible, toggleEditBoardInputVisibility] = useState(false);
 
     const handleSaveTicket = title => {
-        toggleInput();
+        toggleAddTicketInput();
         props.addTicket(props.boardId,
             {
                 title,
@@ -15,17 +17,32 @@ const Board = (props) => {
         )
     }
 
-    const toggleInput = () => {
-        toggleInputVisibility(!isInputVisible);
+    const handleEditBoard = title => {
+        toggleEditBoardInput();
+        props.updateBoard(props.boardId, { title });
+    }
+
+
+    const toggleAddTicketInput = () => {
+        toggleAddTicketInputVisibility(!isAddTicketInputVisible);
+    }
+
+    const toggleEditBoardInput = () => {
+        toggleEditBoardInputVisibility(!isEditBoardInputVisible);
     }
 
     return (
         <div style={boardStyles}>
-            <div style={boardTitleStyles}>
-                <h5 style={{ margin: 0 }}>{props.title}</h5>
-            </div>
+            {
+                isEditBoardInputVisible ?
+                    <TextInput value={props.title} onsave={handleEditBoard} oncancel={toggleEditBoardInput} /> :
+                    <div onClick={toggleEditBoardInput} style={boardTitleStyles}>
+                        <h5 style={{ margin: 0 }}>{props.title}</h5>
+                        <span style={{ marginLeft: '10px' }}><FaEdit /></span>
+                    </div>
+            }
             <div style={{
-                maxHeight: '420px',
+                maxHeight: '360px',
                 overflowY: 'scroll'
             }}>
                 {
@@ -42,13 +59,13 @@ const Board = (props) => {
                         />
                     )
                 }
-                {
-                    isInputVisible ?
-                        <TextInput onsave={handleSaveTicket} oncancel={toggleInput} /> :
-                        <div style={addTicketButtonStyles} onClick={toggleInput}>Add Ticket</div>
-                }
             </div>
-        </div>
+            {
+                isAddTicketInputVisible ?
+                    <TextInput onsave={handleSaveTicket} oncancel={toggleAddTicketInput} /> :
+                    <div style={addTicketButtonStyles} onClick={toggleAddTicketInput}>Add Ticket</div>
+            }
+        </div >
     )
 }
 
@@ -63,7 +80,10 @@ const boardStyles = {
 const boardTitleStyles = {
     padding: '15px',
     backgroundColor: 'slategray',
-    color: 'white'
+    color: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    cursor: 'pointer'
 }
 
 const addTicketButtonStyles = {

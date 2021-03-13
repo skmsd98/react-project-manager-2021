@@ -35,21 +35,34 @@ class BoardsList extends Component {
     }
 
     handleAddBoard = title => {
-        const currentState = Object.assign({}, this.state);
-        const data = { id: uuidv4(), title, tickets: [] };
-        currentState.boardsList.push(data);
+        if (title.trim()) {
+            const currentState = Object.assign({}, this.state);
+            const data = { id: uuidv4(), title, tickets: [] };
+            currentState.boardsList.push(data);
 
-        console.log(currentState)
-        this.updateState(currentState);
+            this.updateState(currentState);
+        }
+    }
+
+    handleUpdateBoard = (boardId, data) => {
+        if (data.title.trim()) {
+            const currentState = Object.assign({}, this.state);
+            const boardIndex = currentState.boardsList.findIndex(board => board.id === boardId);
+            currentState.boardsList[boardIndex] = { ...currentState.boardsList[boardIndex], ...data };
+
+            this.updateState(currentState);
+        }
     }
 
     handleUpdateTicket = (ticketId, boardId, data) => {
-        const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
-        const ticketIndex = this.state.boardsList[boardIndex].tickets.findIndex(ticket => ticket.id == ticketId);
-        const currentState = Object.assign({}, this.state);
-        currentState.boardsList[boardIndex].tickets[ticketIndex] = data;
+        if (data.title.trim()) {
+            const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
+            const ticketIndex = this.state.boardsList[boardIndex].tickets.findIndex(ticket => ticket.id == ticketId);
+            const currentState = Object.assign({}, this.state);
+            currentState.boardsList[boardIndex].tickets[ticketIndex] = data;
 
-        this.updateState(currentState);
+            this.updateState(currentState);
+        }
     }
 
     handleDeleteTicket = (ticketId, boardId) => {
@@ -62,12 +75,14 @@ class BoardsList extends Component {
     }
 
     handleAddTicket = (boardId, data) => {
-        const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
-        const currentState = Object.assign({}, this.state);
-        data.id = uuidv4();
-        currentState.boardsList[boardIndex].tickets.push(data);
+        if (data.title.trim()) {
+            const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
+            const currentState = Object.assign({}, this.state);
+            data.id = uuidv4();
+            currentState.boardsList[boardIndex].tickets.push(data);
 
-        this.updateState(currentState);
+            this.updateState(currentState);
+        }
     }
 
     updateState = newState => {
@@ -92,6 +107,7 @@ class BoardsList extends Component {
                             addTicket={this.handleAddTicket}
                             updateTicket={this.handleUpdateTicket}
                             deleteTicket={this.handleDeleteTicket}
+                            updateBoard={this.handleUpdateBoard}
                         />
                     )
                 }

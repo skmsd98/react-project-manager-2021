@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import classes from './../TextInput/TextInput.module.css';
 
 const TextInput = props => {
-    const inputRef = useRef();
+    const [inputValue, updateInputValue] = useState(props.value || "");
 
     return (
         <div className={classes.InputStyles}>
-            <input type="text" ref={inputRef} autoFocus={true} />
-            <button onClick={() => props.onsave(inputRef.current.value)} className={classes.AddButton}>Save</button>
+            <input type="text" value={inputValue} onChange={(e) => updateInputValue(e.target.value)} autoFocus={true} />
+            <button onClick={() => props.onsave(inputValue)} className={classes.AddButton}>Save</button>
             <button onClick={props.oncancel} className={classes.CancelButton}>X</button>
         </div>
     )
