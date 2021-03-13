@@ -18,7 +18,8 @@ const Modal = (props) => (
             borderRadius: '5px',
             overflow: 'scroll',
             textAlign: 'left',
-            padding: '0 30px'
+            padding: '15px 30px',
+            boxSizing: 'border-box'
         }}>
             {props.children}
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../../../../../Utilities/Modal/Modal';
 import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from "react-icons/md";
 
 const Ticket = (props) => {
     const [isModalOpen, toggleModal] = useState(false);
@@ -28,8 +29,6 @@ const Ticket = (props) => {
         ))
     }
 
-    // () => props.deleteTicket(props.ticketId, props.boardId)
-
     function edit() {
         const { ticketId, boardId, title, description } = props;
         const newObj = { id: ticketId, title, description, title: 'tootle', description: 'descropidpfsi' }
@@ -40,6 +39,61 @@ const Ticket = (props) => {
         const newObj = { title: 'tootle', description: 'descropidpfsi' }
         props.addTicket(props.boardId, newObj)
     }
+
+    function handleDeleteTicket() {
+        handleModalToggle();
+        props.deleteTicket(props.ticketId, props.boardId);
+    }
+
+    const ticketModal = (
+        <>
+            <div style={ticketModalHeadingStyles}>
+                <h2>Ticket Details</h2>
+                <div style={{
+                    fontSize: '20px'
+                }}>
+                    <span style={{
+                        cursor: 'pointer'
+                    }}><FaEdit /></span>
+                    <span onClick={handleDeleteTicket} style={{
+                        marginLeft: '20px',
+                        color: '#d03030',
+                        cursor: 'pointer'
+                    }}><MdDelete /></span>
+                </div>
+            </div>
+            <h4>Title</h4>
+            {
+                !editStatus.isEditTitleActive ?
+                    <p style={{ margin: 0 }}>{props.title}</p> :
+                    <input type="text" value={props.title} />
+            }
+            <h4>Description</h4>
+            {
+                !editStatus.isEditDescriptionActive ?
+                    <p style={{ margin: 0 }}>{props.description}</p> :
+                    <input type="text" value={props.description} />
+            }
+            <div style={{
+                marginTop: '30px'
+            }}>
+                <button style={{
+                    padding: '10px 20px',
+                    color: 'white',
+                    border: '1px solid dimgray',
+                    backgroundColor: '#0e9e0e',
+                    marginRight: '10px'
+                }}>Save</button>
+                <button style={{
+                    padding: '10px 20px',
+                    color: 'white',
+                    border: '1px solid dimgray',
+                    backgroundColor: '#d03e08'
+                }}>Cancel</button>
+            </div>
+        </>
+    )
+
     return (
         <>
             <div onClick={handleModalToggle} style={ticketStyles}>
@@ -47,26 +101,8 @@ const Ticket = (props) => {
             </div>
             {
                 isModalOpen &&
-                <Modal closed={handleModalToggle} height="500px" width="600px">
-                    <h1>Ticket Details</h1>
-                    <div style={ticketHeadingsStyles}>
-                        <h4 style={headingInside}>Title</h4>
-                        <span onClick={handleEditTitle} style={editIcon}><FaEdit /></span>
-                    </div>
-                    {
-                        !editStatus.isEditTitleActive ?
-                            <p style={{ margin: 0 }}>{props.title}</p> :
-                            <input type="text" value={props.title} />
-                    }
-                    <div style={ticketHeadingsStyles}>
-                        <h4 style={headingInside}>Description</h4>
-                        <span onClick={handleEditDescription} style={editIcon}><FaEdit /></span>
-                    </div>
-                    {
-                        !editStatus.isEditDescriptionActive ?
-                            <p style={{ margin: 0 }}>{props.description}</p> :
-                            <input type="text" value={props.description} />
-                    }
+                <Modal closed={handleModalToggle} height="400px" width="500px">
+                    {ticketModal}
                 </Modal>
             }
         </>
@@ -81,18 +117,24 @@ const ticketStyles = {
     cursor: 'pointer',
 }
 
-const ticketHeadingsStyles = {
+const ticketModalHeadingStyles = {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
 }
 
-const headingInside = {
-    display: 'inline',
-    marginRight: '10px'
-}
+// const ticketHeadingsStyles = {
+//     display: 'flex',
+//     alignItems: 'center'
+// }
 
-const editIcon = {
-    cursor: 'pointer'
-}
+// const headingInside = {
+//     display: 'inline',
+//     marginRight: '10px'
+// }
+
+// const editIcon = {
+//     cursor: 'pointer'
+// }
 
 export default Ticket;
