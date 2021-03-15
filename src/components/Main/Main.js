@@ -4,7 +4,6 @@ import NewBoardToolbar from './NewBoardToolbar/NewBoardToolbar';
 
 const Main = () => (
     <main>
-        {/* <NewBoardToolbar /> */}
         <BoardsList />
     </main>
 );

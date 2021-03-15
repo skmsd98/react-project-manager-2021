@@ -1,4 +1,4 @@
-.BoardStyles {
+.boardStyles {
     background-color: lightgray;
     border: 1px solid;
     margin: 10px;
@@ -6,12 +6,12 @@
     min-width: 250px;
 }
 
-.BoardTitleStyles {
+.boardTitleStyles {
     padding: 15px;
     background-color: slategray;
     color: white;
 }
 
-.BoardTitleStyles h5 {
+.boardTitleStyles h5 {
     margin: 0;
 }

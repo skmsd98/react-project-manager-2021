@@ -1,0 +1,7 @@
+.boardsListStyles {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: calc(100vh - 50px);
+    align-items: flex-start;
+}

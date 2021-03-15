@@ -1,0 +1,46 @@
+.ticketStyles {
+    background-color: white;
+    margin: 10px 0;
+    padding: 7px 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.ticketModalHeadingStyles {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editDeleteButtons {
+    font-size: 20px;
+}
+
+.editDeleteButtons span {
+    cursor: pointer;
+}
+
+.editDeleteButtons span:last-child {
+    margin-left: 20px;
+    color: #d03030;
+}
+
+.saveCancelButtons {
+    margin-top: 30px;
+}
+
+.saveCancelButtons button {
+    padding: 10px 20px;
+    color: white;
+    border: 1px solid dimgray;
+    background-color: #d03e08;
+}
+
+.saveCancelButtons button:first-child {
+    background-color: #0e9e0e;
+    margin-right: 10px;
+}
+
+.noMargin {
+    margin: 0;
+}

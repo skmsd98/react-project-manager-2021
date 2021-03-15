@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Board from './Board/Board'
 import { v4 as uuidv4 } from 'uuid';
-// import TextInput from '../../shared/TextInput/TextInput';
 import NewBoard from './NewBoard/NewBoard';
+import classes from './BoardsList.module.css';
 
 class BoardsList extends Component {
     state = {
@@ -96,7 +96,7 @@ class BoardsList extends Component {
 
     render() {
         return (
-            <div style={boardsListStyles}>
+            <div className={classes.boardsListStyles}>
                 {
                     this.state.boardsList.map((board, index) =>
                         <Board
@@ -115,14 +115,6 @@ class BoardsList extends Component {
             </div>
         )
     }
-}
-
-const boardsListStyles = {
-    display: 'flex',
-    overflowX: 'scroll',
-    overflowY: 'hidden',
-    height: 'calc(100vh - 50px)',
-    alignItems: 'flex-start'
 }
 
 export default BoardsList;

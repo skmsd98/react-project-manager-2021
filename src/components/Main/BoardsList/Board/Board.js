@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Ticket from './Ticket/Ticket';
 import TextInput from './../../../shared/TextInput/TextInput';
 import { FaEdit } from 'react-icons/fa'
+import classes from './Board.module.css';
 
 const Board = (props) => {
     const [isAddTicketInputVisible, toggleAddTicketInputVisibility] = useState(false);
@@ -32,19 +33,16 @@ const Board = (props) => {
     }
 
     return (
-        <div style={boardStyles}>
+        <div className={classes.boardStyles}>
             {
                 isEditBoardInputVisible ?
                     <TextInput value={props.title} onsave={handleEditBoard} oncancel={toggleEditBoardInput} /> :
-                    <div onClick={toggleEditBoardInput} style={boardTitleStyles}>
+                    <div onClick={toggleEditBoardInput} className={classes.boardTitleStyles}>
                         <h5 style={{ margin: 0 }}>{props.title}</h5>
-                        <span style={{ marginLeft: '10px' }}><FaEdit /></span>
+                        <span><FaEdit /></span>
                     </div>
             }
-            <div style={{
-                maxHeight: '360px',
-                overflowY: 'scroll'
-            }}>
+            <div className={classes.ticketsContainer}>
                 {
                     props.tickets.map((ticket, index) =>
                         <Ticket
@@ -63,36 +61,10 @@ const Board = (props) => {
             {
                 isAddTicketInputVisible ?
                     <TextInput onsave={handleSaveTicket} oncancel={toggleAddTicketInput} /> :
-                    <div style={addTicketButtonStyles} onClick={toggleAddTicketInput}>Add Ticket</div>
+                    <div className={classes.addTicketButtonStyles} onClick={toggleAddTicketInput}>Add Ticket</div>
             }
         </div >
     )
-}
-
-const boardStyles = {
-    backgroundColor: 'lightgray',
-    border: '1px solid',
-    margin: '10px',
-    padding: '5px',
-    minWidth: '250px'
-}
-
-const boardTitleStyles = {
-    padding: '15px',
-    backgroundColor: 'slategray',
-    color: 'white',
-    display: 'flex',
-    justifyContent: 'center',
-    cursor: 'pointer'
-}
-
-const addTicketButtonStyles = {
-    backgroundColor: 'gray',
-    margin: '10px 0px',
-    padding: '7px 0px',
-    width: '100%',
-    cursor: 'pointer',
-    color: 'white'
 }
 
 export default Board;

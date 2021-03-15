@@ -15,13 +15,13 @@ const NewBoard = props => {
     }
 
     const newBoardButton = (
-        <div onClick={toggleInput} className={classes.BoardTitleStyles}>
+        <div onClick={toggleInput} className={classes.boardTitleStyles}>
             <h5>+ New Board</h5>
         </div>
     );
 
     return (
-        <div className={classes.BoardStyles}>
+        <div className={classes.boardStyles}>
             {
                 isInputVisible ?
                     <TextInput onsave={handleSaveBoard} oncancel={toggleInput} /> :

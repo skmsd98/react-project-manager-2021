@@ -1,0 +1,15 @@
+.modalStyles {
+    z-index: 101;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 5px;
+    overflow: scroll;
+    text-align: left;
+    padding: 15px 30px;
+    box-sizing: border-box;
+}

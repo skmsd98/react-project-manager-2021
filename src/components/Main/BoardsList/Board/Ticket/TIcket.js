@@ -1,43 +1,28 @@
 import React, { useState } from 'react';
-import Modal from '../../../../../Utilities/Modal/Modal';
+import Modal from '../../../../../utilities/Modal/Modal';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from "react-icons/md";
+import classes from './Ticket.module.css';
 
 const Ticket = (props) => {
     const [isModalOpen, toggleModal] = useState(false);
-    const [editStatus, toggleEditStatus] = useState({ isEditTitleActive: false, isEditDescriptionActive: false });
+    const [editStatus, toggleEditStatus] = useState(false);
+    const [inputValues, setInputValues] = useState({ title: props.title, description: props.description });
 
     function handleModalToggle() {
         toggleModal(!isModalOpen);
+        toggleEditStatus(false);
     }
 
-    function handleEditTitle() {
-        toggleEditStatus(prevStatus => (
-            {
-                ...prevStatus,
-                isEditTitleActive: !prevStatus.isEditTitleActive
-            }
-        ))
-    }
-
-    function handleEditDescription() {
-        toggleEditStatus(prevStatus => (
-            {
-                ...prevStatus,
-                isEditDescriptionActive: !prevStatus.isEditDescriptionActive
-            }
-        ))
-    }
-
-    function edit() {
+    function hanldeUpdateTicket() {
         const { ticketId, boardId, title, description } = props;
-        const newObj = { id: ticketId, title, description, title: 'tootle', description: 'descropidpfsi' }
-        props.updateTicket(ticketId, boardId, newObj)
+        const newObj = { id: ticketId, title, description, title: inputValues.title, description: inputValues.description };
+        props.updateTicket(ticketId, boardId, newObj);
+        handleModalToggle();
     }
 
-    function add() {
-        const newObj = { title: 'tootle', description: 'descropidpfsi' }
-        props.addTicket(props.boardId, newObj)
+    function handleToggleStatus() {
+        toggleEditStatus(!editStatus);
     }
 
     function handleDeleteTicket() {
@@ -45,58 +30,70 @@ const Ticket = (props) => {
         props.deleteTicket(props.ticketId, props.boardId);
     }
 
+    function handleLeaveEdit(buttonPressed) {
+        if (buttonPressed == 'save') {
+            hanldeUpdateTicket();
+        } else {
+            setInputValues({ title: props.title, description: props.description });
+        }
+        toggleEditStatus(!editStatus);
+    }
+
+    function handleInputChange(e, inputName) {
+        setInputValues({ ...inputValues, [inputName]: e.target.value })
+    }
+
     const ticketModal = (
         <>
-            <div style={ticketModalHeadingStyles}>
+            <div className={classes.ticketModalHeadingStyles}>
                 <h2>Ticket Details</h2>
-                <div style={{
-                    fontSize: '20px'
-                }}>
-                    <span style={{
-                        cursor: 'pointer'
-                    }}><FaEdit /></span>
-                    <span onClick={handleDeleteTicket} style={{
-                        marginLeft: '20px',
-                        color: '#d03030',
-                        cursor: 'pointer'
-                    }}><MdDelete /></span>
+                <div className={classes.editDeleteButtons}>
+                    {
+                        !editStatus && (
+                            <span onClick={handleToggleStatus}>
+                                <FaEdit />
+                            </span>
+                        )
+                    }
+                    <span onClick={handleDeleteTicket}><MdDelete /></span>
                 </div>
             </div>
+
             <h4>Title</h4>
             {
-                !editStatus.isEditTitleActive ?
-                    <p style={{ margin: 0 }}>{props.title}</p> :
-                    <input type="text" value={props.title} />
+                !editStatus ?
+                    <p className={classes.noMargin}>{inputValues.title}</p> :
+                    <input
+                        type="text"
+                        value={inputValues.title}
+                        onChange={e => handleInputChange(e, 'title')}
+                    />
             }
+
             <h4>Description</h4>
             {
-                !editStatus.isEditDescriptionActive ?
-                    <p style={{ margin: 0 }}>{props.description}</p> :
-                    <input type="text" value={props.description} />
+                !editStatus ?
+                    <p className={classes.noMargin}>{inputValues.description}</p> :
+                    <input
+                        type="text"
+                        value={inputValues.description}
+                        onChange={e => handleInputChange(e, 'description')}
+                    />
             }
-            <div style={{
-                marginTop: '30px'
-            }}>
-                <button style={{
-                    padding: '10px 20px',
-                    color: 'white',
-                    border: '1px solid dimgray',
-                    backgroundColor: '#0e9e0e',
-                    marginRight: '10px'
-                }}>Save</button>
-                <button style={{
-                    padding: '10px 20px',
-                    color: 'white',
-                    border: '1px solid dimgray',
-                    backgroundColor: '#d03e08'
-                }}>Cancel</button>
-            </div>
+            {
+                editStatus && (
+                    <div className={classes.saveCancelButtons}>
+                        <button onClick={() => handleLeaveEdit('save')}>Save</button>
+                        <button onClick={() => handleLeaveEdit('cancel')}>Cancel</button>
+                    </div>
+                )
+            }
         </>
     )
 
     return (
         <>
-            <div onClick={handleModalToggle} style={ticketStyles}>
+            <div onClick={handleModalToggle} className={classes.ticketStyles}>
                 <span>{props.title}</span>
             </div>
             {
@@ -108,33 +105,5 @@ const Ticket = (props) => {
         </>
     )
 };
-
-const ticketStyles = {
-    backgroundColor: 'white',
-    margin: '10px 0',
-    padding: '7px 0',
-    width: '100%',
-    cursor: 'pointer',
-}
-
-const ticketModalHeadingStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-}
-
-// const ticketHeadingsStyles = {
-//     display: 'flex',
-//     alignItems: 'center'
-// }
-
-// const headingInside = {
-//     display: 'inline',
-//     marginRight: '10px'
-// }
-
-// const editIcon = {
-//     cursor: 'pointer'
-// }
 
 export default Ticket;
