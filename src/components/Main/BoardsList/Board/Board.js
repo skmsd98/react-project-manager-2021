@@ -3,6 +3,7 @@ import Ticket from './Ticket/Ticket';
 import TextInput from './../../../shared/TextInput/TextInput';
 import { FaEdit } from 'react-icons/fa'
 import classes from './Board.module.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const Board = (props) => {
     const [isAddTicketInputVisible, toggleAddTicketInputVisibility] = useState(false);
@@ -48,7 +49,7 @@ const Board = (props) => {
                         <Ticket
                             title={ticket.title}
                             description={ticket.description}
-                            key={index}
+                            key={uuidv4()}
                             boardId={props.boardId}
                             ticketId={ticket.id}
                             addTicket={props.addTicket}
