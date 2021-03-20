@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Ticket from './Ticket/Ticket';
 import TextInput from './../../../shared/TextInput/TextInput';
 import { FaEdit } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 import classes from './Board.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -33,19 +34,26 @@ const Board = (props) => {
         toggleEditBoardInputVisibility(!isEditBoardInputVisible);
     }
 
+    const handleDeleteBoard = () => {
+        props.deleteBoard(props.boardId);
+    }
+
     return (
         <div className={classes.boardStyles}>
             {
                 isEditBoardInputVisible ?
                     <TextInput value={props.title} onsave={handleEditBoard} oncancel={toggleEditBoardInput} /> :
-                    <div onClick={toggleEditBoardInput} className={classes.boardTitleStyles}>
+                    <div className={classes.boardTitleStyles}>
                         <h5 style={{ margin: 0 }}>{props.title}</h5>
-                        <span><FaEdit /></span>
+                        <div>
+                            <span onClick={toggleEditBoardInput}><FaEdit /></span>
+                            <span onClick={handleDeleteBoard}><MdDelete /></span>
+                        </div>
                     </div>
             }
             <div className={classes.ticketsContainer}>
                 {
-                    props.tickets.map((ticket, index) =>
+                    props.tickets.map((ticket) =>
                         <Ticket
                             title={ticket.title}
                             description={ticket.description}

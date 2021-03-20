@@ -54,6 +54,14 @@ class BoardsList extends Component {
         }
     }
 
+    handleDeleteBoard = boardId => {
+        const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
+        const currentState = Object.assign({}, this.state);
+        currentState.boardsList.splice(boardIndex, 1);
+
+        this.updateState(currentState);
+    }
+
     handleUpdateTicket = (ticketId, boardId, data) => {
         if (data.title.trim()) {
             const boardIndex = this.state.boardsList.findIndex(board => board.id == boardId);
@@ -108,6 +116,7 @@ class BoardsList extends Component {
                             updateTicket={this.handleUpdateTicket}
                             deleteTicket={this.handleDeleteTicket}
                             updateBoard={this.handleUpdateBoard}
+                            deleteBoard={this.handleDeleteBoard}
                         />
                     )
                 }
