@@ -6,32 +6,7 @@ import classes from './BoardsList.module.css';
 
 class BoardsList extends Component {
     state = {
-        boardsList: [{
-            id: uuidv4(),
-            title: 'my board',
-            tickets: [
-                { id: uuidv4(), title: 'my ticket', description: 'this is my ticket' }
-            ]
-        },
-        {
-            id: uuidv4(),
-            title: 'nice board',
-            tickets: [
-                { id: uuidv4(), title: 'ticket 1', description: 'this is ticket 1' },
-                { id: uuidv4(), title: 'ticket 2', description: 'this is ticket 2' },
-                { id: uuidv4(), title: 'ticket 3', description: 'this is ticket 3' },
-                { id: uuidv4(), title: 'ticket 4', description: 'this is ticket 4' },
-                { id: uuidv4(), title: 'ticket 5', description: 'this is ticket 5' }
-            ]
-        }, {
-            id: uuidv4(),
-            title: 'other board',
-            tickets: [
-                { id: uuidv4(), title: 'my ticket', description: 'this is my ticket' },
-                { id: uuidv4(), title: 'my ticket', description: 'this is my ticket' },
-                { id: uuidv4(), title: 'my ticket', description: 'this is my ticket' }
-            ]
-        }]
+        boardsList: []
     }
 
     handleAddBoard = title => {
