@@ -1,5 +1,6 @@
 .InputStyles {
     text-align: left;
+    margin: 5px 0;
 }
 
 .InputStyles input {
@@ -10,20 +11,26 @@
     height: 46px;
     width: 250px;
     box-sizing: border-box;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     padding: 0 10px;
     font-size: 14px;
     outline: none;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 .AddButton {
     padding: 10px 15px;
     background: #53c353;
     color: white;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 .CancelButton {
     padding: 10px 15px;
     margin-left: 5px;
     background-color: #e49f1f;
+    border-radius: 5px;
+    border: 1px solid gray;
 }

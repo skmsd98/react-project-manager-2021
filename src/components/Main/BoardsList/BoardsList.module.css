@@ -4,4 +4,8 @@
     overflow-y: hidden;
     height: calc(100vh - 50px);
     align-items: flex-start;
+    background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/p-439-jack-rp-0162.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=f85fcf7926fab34f4233a0103b615b54");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

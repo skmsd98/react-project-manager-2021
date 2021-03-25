@@ -47,7 +47,7 @@ const Board = (props) => {
                         <h5 style={{ margin: 0 }}>{props.title}</h5>
                         <div>
                             <span onClick={toggleEditBoardInput}><FaEdit /></span>
-                            <span onClick={handleDeleteBoard}><MdDelete /></span>
+                            <span className={classes.deleteButton} onClick={handleDeleteBoard}><MdDelete /></span>
                         </div>
                     </div>
             }
